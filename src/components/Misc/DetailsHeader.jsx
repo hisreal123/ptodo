@@ -1,29 +1,26 @@
 import { BsChevronDown, BsChevronUp, BsInbox } from 'react-icons/bs'
 import { CiMenuKebab } from 'react-icons/ci'
 import { IoMdClose } from 'react-icons/io'
-import { useDispatch, useSelector } from 'react-redux';
-import { isOpenDetails, setStrikeTask } from '../../redux/logic';
-import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { isOpenDetails } from '../../redux/logic';
+// import { useEffect } from 'react';
 
 function DetailsHeader() {
 
     const dispatch = useDispatch();
-    const strikeTask = useSelector((state) => state.strikeTask)
 
 
+    // useEffect(() => {
 
+    //     let dataF = () => {
+    //         const data = window.localStorage.getItem('item', strikeTask)
+    //         if (data !== null)
+    //             dispatch(setStrikeTask(JSON.parse(data)))
+    //         console.log(JSON.parse(data))
+    //     }
 
-    useEffect(() => {
-
-        let dataF = () => {
-            const data = window.localStorage.getItem('item', strikeTask)
-            if (data !== null)
-                dispatch(setStrikeTask(JSON.parse(data)))
-            console.log(JSON.parse(data))
-        }
-
-        return dataF
-    }, [])
+    //     return dataF
+    // }, [])
 
 
     const handleClose = () => {

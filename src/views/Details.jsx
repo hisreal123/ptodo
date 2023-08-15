@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useAddTodo } from '../core/hooks';
 import DetailsHeader from '../components/Misc/DetailsHeader';
 import { MdOutlineDone } from 'react-icons/md'
 import { useState } from 'react';
 
 import pop from "../assets/sounds/pop.wav"
-import { setStrikeTask } from '../redux/logic';
+// import { setStrikeTask } from '../redux/logic';
 
 
 function Details() {
@@ -17,7 +17,7 @@ function Details() {
     const todoId = useSelector(state => state.details.todoId)
     const getTodo = todoss?.find((todo) => todo.id === todoId);
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const [editMode, setEditMode] = useState(false);
 
@@ -58,7 +58,7 @@ function Details() {
 
 
     const handlePlay = () => {
-        dispatch(setStrikeTask())
+        // dispatch(setStrikeTask())
         audio.play().catch((error) => {
             console.error("Error playing sound:", error);
         });
