@@ -1,7 +1,6 @@
 import { format } from 'date-fns'
 import { CiFilter } from 'react-icons/ci'
 
-
 // eslint-disable-next-line react/prop-types
 function DatedHeader() {
 

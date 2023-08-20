@@ -9,12 +9,11 @@ import { setAddTodo } from "../../redux/logic"
 function Nav() {
     const dispatch = useDispatch();
 
-    const repeatIcons = 'text-[1.5rem] my-2 cursor-pointer text-white '
+    const repeatIcons = 'text-[1.5rem] cursor-pointer text-white'
 
     return (
-        <section className=' bg-[#669bbc]'>
-            <div className='flex items-center justify-between w-full px-2 '>
-
+        <section className='bg-[#669bbc]'>
+            <div className='flex items-center justify-between w-full px-2'>
 
                 <AiOutlineMenu className={` ${repeatIcons} `} />
                 <AiOutlineHome className={` ${repeatIcons} `} />

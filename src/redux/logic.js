@@ -6,7 +6,7 @@ const initialState = {
     todoId : null,
     addTodo:  false,
     showOverDue :  false,
-    // strikeTask: false
+    openView : false
 }
 
 
@@ -26,12 +26,12 @@ const initialState = {
         setShowOverDue: (state) => {
             state.showOverDue = !state.showOverDue;
         },
-        // setStrikeTask: (state) => {
-        //     state.strikeTask = !state.strikeTask;
-        // },
+        setOpenView: (state) => {
+            state.openView = !state.openView;
+        },
     }
 })
 
 
-export const { isOpenDetails , setTodoId, setAddTodo, setShowOverDue} = TodoDetails.actions
+export const {isOpenDetails , setTodoId, setAddTodo, setShowOverDue, setOpenView} = TodoDetails.actions
 export default TodoDetails.reducer

@@ -1,0 +1,12 @@
+# Write an application that recieves a current date then use the recieved data
+# to make a (1) progress bar (2) Calculate the amount of time remaining to finish the task
+# (3)
+
+
+- get the present time and date when user creats a task
+- get the time and date of which the user wants to finish the task
+- get the time interval between the createdDate and toFinishDate
+- store the date in a variable called  timeRemaining
+
+
+# - pass the timeRemaining into
