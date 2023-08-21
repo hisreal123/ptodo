@@ -29,9 +29,20 @@ export const getAddTodo = (newPost) => {
 export const getDeleteTodo = (id) => {
   const url = `${baseUrl}/${id}`;
 
-  return axios.delete(url, {
-    headers: {
-      "Content-Type" : "application/json"
+  return axios.delete(url)
+  .then(response => response.data)
+  .catch(error => {
+    throw error;
+  });
+}
+
+
+export const updateTodo = (id, data) => {
+  const url  = `${baseUrl}/${id}`;
+
+  return axios.patch( url, data, {
+    headers:{
+       "Content-Type" : "application/json"
     }
   })
   .then(response => response.data)

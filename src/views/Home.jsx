@@ -42,6 +42,7 @@ export const User = () => {
             <section className="bg-[#dad7cd] group min-h-screen">
                 <div className="wrap w-[60%] mx-auto py-20 ">
 
+
                     {/* Add New todos  */}
                     <AddTodos addTodo={addTodo} setTodo={setAddTodo} />
 
@@ -61,7 +62,6 @@ export const User = () => {
                                     <div
                                         className="rounded-md bg-white cursor-pointer fetched hover:bg-[#ebebebde] flex justify-between  items-center py-4 px-4 "
                                         key={todo.id}
-
                                     >
                                         <div className="dt flex relative w-full"
                                             onClick={() => handleTodoClick(todo.id)}
@@ -70,7 +70,6 @@ export const User = () => {
 
                                             <div className="wrap relative w-full">
                                                 <h1 className='Working pl-5 text-md text-gray '>{todo.title} </h1>
-
                                                 <p className='Working pl-5 mt-1 text-xs text-gray-400 '>  Desc :
                                                     <span className="">
                                                         {todo.desc}</span>
@@ -84,7 +83,6 @@ export const User = () => {
                                                         ${todo?.timeRemaining % 60 === 1 ? "minute" : "minutes"} remaining`}`} | to complete task
                                                 </p>
                                             </div>
-
                                         </div>
 
 

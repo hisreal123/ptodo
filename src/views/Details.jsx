@@ -1,48 +1,43 @@
-import { useSelector } from 'react-redux';
-import { useAddTodo } from '../core/hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { useAddTodo, useDeleteTodo, useUpdateTodo } from '../core/hooks';
 import DetailsHeader from '../components/Misc/DetailsHeader';
 import { MdOutlineDone } from 'react-icons/md'
 import { useState } from 'react';
-
 import pop from "../assets/sounds/pop.wav"
-// import { setStrikeTask } from '../redux/logic';
-
+import { isOpenDetails } from '../redux/logic';
 
 function Details() {
 
     const { data: todoss } = useAddTodo()
     const showDetails = useSelector(state => state.details.showDetails)
 
-
     const todoId = useSelector(state => state.details.todoId)
     const getTodo = todoss?.find((todo) => todo.id === todoId);
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+
 
     const [editMode, setEditMode] = useState(false);
-
     const [editedTitle, setEditedTitle] = useState('');
     const [editedDesc, setEditedDesc] = useState('');
+    // const deleteMutation = useDeleteTodo(todoId)
 
-
-
+    const updateTodo = useUpdateTodo()
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        // try {
-        // Call the API to update the todo
-        // await updateTodoApi(todoId, { title: editedTitle, desc: editedDesc });
-        // Invalidate the query to refetch the data
-        // queryClient.invalidateQueries(['Todos']);
-        // Exit edit mode
-        //     setEditMode(false);
-        // } catch (error) {
-        //     // Handle error
-        //     toast.error(error?.response?.data?.message || error?.message, {
-        //         ...errStyles,
-        //     });
-        // }
+        const data = {
+            title: editedTitle,
+            desc: editedDesc,
+        }
+
+        if (updateTodo.mutateAsync({ id: todoId, data: data })) {
+            setEditMode(!editMode)
+            dispatch(isOpenDetails())
+            // dispatchEvent(showDetails)
+        }
     };
+
 
     const handleTitleClick = () => {
         setEditMode(true);
@@ -56,14 +51,34 @@ function Details() {
 
     const [audio] = useState(new Audio(pop))
 
-
     const handlePlay = () => {
-        // dispatch(setStrikeTask())
-        audio.play().catch((error) => {
-            console.error("Error playing sound:", error);
-        });
-    }
+        const completedFetch = getTodo?.completed
 
+        if (completedFetch == false) {
+            audio.play().catch((error) => {
+                console.error("Error playing sound:", error);
+            })
+
+            const data = {
+                completed: !completedFetch
+            }
+
+            updateTodo.mutateAsync({ id: todoId, data: data })
+
+        } else if (completedFetch == true) {
+
+            audio.play().catch((error) => {
+                console.error("Error playing sound:", error);
+            })
+
+            const data = {
+                completed: !completedFetch
+            }
+
+            updateTodo.mutateAsync({ id: todoId, data: data })
+        }
+
+    }
 
     return (
         <div
@@ -84,7 +99,7 @@ function Details() {
                                         className={` ${getTodo?.completed ? 'cursor-not-allowed border-gray-400 bg-gray-200' : 'border-green-400 '} self-start  h-5 w-5 mt-1 rounded-full
                                         border flex items-center justify-center group hover:bg-gray-200
                                         duration-200 transition-all `}
-                                        onClick={handlePlay}
+                                        onClick={() => handlePlay(getTodo.id)}
                                     >
                                         <MdOutlineDone className={` ${getTodo?.completed === true ? 'block ' : ' hidden'} rounded-full text-xs group-hover:block
                                         duration-200 transition-all text-gray-400`} />
@@ -135,7 +150,7 @@ function Details() {
                                                 <h1
                                                     className={` cursor-text mb-1 text-md font-bold
                                                             ${editMode ? 'hidden' : 'cursor-pointer'}
-                                                            ${getTodo?.completed ? 'line-through' : ''}`}
+                                                            ${getTodo?.completed === true ? 'line-through' : ''}`}
                                                     onClick={handleTitleClick}
                                                 >
                                                     {getTodo?.title}

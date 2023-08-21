@@ -1,11 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { getAddTodo, getDeleteTodo, getTodos } from "./api";
+import { getAddTodo, getDeleteTodo, getTodos, updateTodo } from "./api";
 import { toast } from "react-toastify";
 
 
-
 const errStyles = {
-    position: "top-right",
+    position: "topright",
     autoClose: 5000,
     hideProgressBar: false,
     closeOnClick: true,
@@ -58,4 +57,19 @@ export const useDeleteTodo = () => {
         }
     })
 };
+
+
+export const useUpdateTodo = ()  => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn : ({id, data}) => updateTodo(id, data),
+
+        onSuccess: () => {
+            queryClient.invalidateQueries( { queryKey : ["Todos"]})
+            toast.success('Task updated Successfully ',  { ...errStyles } );
+        }
+
+    })
+}
 
